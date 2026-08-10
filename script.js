@@ -5,9 +5,14 @@
   const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
 
+  const isEnglish = () => root.lang === 'en';
+
   const applyTheme = (theme) => {
     root.dataset.theme = theme;
-    toggle?.setAttribute('aria-label', theme === 'dark' ? 'Activer le thème clair' : 'Activer le thème sombre');
+    const label = theme === 'dark'
+      ? (isEnglish() ? 'Enable light theme' : 'Activer le thème clair')
+      : (isEnglish() ? 'Enable dark theme' : 'Activer le thème sombre');
+    toggle?.setAttribute('aria-label', label);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#08111c' : '#0d3b66');
   };
 
